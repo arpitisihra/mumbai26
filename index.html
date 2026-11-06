@@ -1,119 +1,565 @@
+
+
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>SETTLD in Mumbai</title>
+
 <style>
-:root{color-scheme:dark;--bg:#0b0d12;--surface:#151923;--line:#2a3040;--txt:#edf1f8;--muted:#a4afc1;--accent:#fa5d5d;--green:#6edbb2}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--txt);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}.wrap{max-width:1300px;margin:auto;padding:34px 20px 70px}h1{font-size:clamp(26px,4vw,42px);line-height:1.15;margin:10px 0}p{color:var(--muted)}.eyebrow{font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:800}.meta{display:flex;gap:9px;flex-wrap:wrap;margin:22px 0}.chip{background:var(--surface);border:1px solid var(--line);border-radius:100px;padding:8px 12px;color:#d7dfeb;font-size:13px}.toolbar{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:25px 0 15px}.toolbar button{background:#1b2130;color:var(--txt);border:1px solid #364054;border-radius:9px;padding:10px 13px;cursor:pointer;font-weight:650}.toolbar button.active{background:var(--accent);border-color:var(--accent);color:#170b0d}.day{margin:20px 0 26px;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}.day-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 20px;border-bottom:1px solid var(--line)}.day h2{font-size:19px;margin:0}.day .theme{font-size:13px;color:var(--muted)}.table-scroll{overflow-x:auto}table{border-collapse:collapse;width:100%;min-width:820px}th{text-align:left;color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.055em;background:#10141d}th,td{padding:13px 15px;border-bottom:1px solid #272d3a;vertical-align:top}tr:last-child td{border-bottom:0}td:nth-child(1){white-space:nowrap;font-weight:700;width:160px}td:nth-child(4){white-space:nowrap}a{color:#95b9ff;text-decoration:none}a:hover{text-decoration:underline}td:nth-child(2) a{color:#ff626b;font-weight:700}td:nth-child(3),td:nth-child(3) a{color:#70b6ff}td:nth-child(3) a:hover{color:#a7d3ff}.fit{color:var(--green);font-weight:750}.low{color:#f1c37a}.note{margin-top:25px;padding:17px 20px;border:1px solid var(--line);border-radius:12px;background:var(--surface)}.note p{margin:7px 0}.foot{font-size:12px;margin-top:20px}.hide{display:none!important}.toolbar #copyCode{margin-left:auto;border-color:#5d718c}.toolbar #awaitTab{border-color:#765564}#copyStatus{color:var(--green);font-size:12px}.status-select{background:#222b39;color:#e8efff;border:1px solid #4a566c;padding:9px;border-radius:8px;max-width:175px}.manual-row{background:#192333}.manual-note{font-size:12px;color:#f6c47c}.awaiting-event{color:#ff626b;font-weight:700}.awaiting-venue{color:#70b6ff}.awaiting-table td:first-child{white-space:normal}@media(max-width:700px){.toolbar #copyCode{margin-left:0}}@media print{body{background:white;color:#111}.wrap{padding:8px}.day{break-inside:avoid;background:white;border-color:#bbb}th{background:#eee;color:#222}td{border-color:#ddd}.toolbar{display:none}p,.theme{color:#444}a{color:#0645ad}.chip{color:#222;background:#eee}.note{background:#fff}}
+
+:root{color-scheme:dark;--bg:#0c1019;--panel:#171e2c;--line:#30394b;--text:#f1f4f9;--muted:#a6b1c5;--red:#ff777e;--blue:#7cb8ff;--green:#62d6a3}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.55 system-ui,-apple-system,sans-serif}
+
+main{max-width:1120px;margin:auto;padding:28px 16px 70px}
+
+h1{font-size:32px;margin:0}h2{font-size:21px;margin:0 0 12px}
+
+p{color:var(--muted)}
+
+header{margin-bottom:24px}
+
+.chips,.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}
+
+.chip,.tab{background:#20293a;border:1px solid var(--line);border-radius:10px;padding:8px 12px;color:var(--text)}
+
+.tab{cursor:pointer}.tab.active{background:#354d73;border-color:var(--blue)}
+
+.day{display:none;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-top:14px}
+
+.day.visible{display:block}
+
+table{width:100%;border-collapse:collapse;min-width:650px}
+
+th,td{padding:12px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+
+th{color:var(--muted);font-size:12px}
+
+.scroll{overflow-x:auto}
+
+a{color:var(--red);text-decoration:none;font-weight:600}
+
+a:hover{text-decoration:underline}
+
+.venue{color:var(--blue)}
+
+small,.muted{color:var(--muted)}
+
+.tag{font-size:11px;border-radius:7px;padding:3px 7px;background:#304b3e;color:#a7f4cb;white-space:nowrap}
+
+.tag.wait{background:#55402d;color:#ffcf86}
+
+.tag.invited{background:#353d5b;color:#bac9ff}
+
+select{background:#20293a;color:white;border:1px solid #586782;border-radius:7px;padding:8px}
+
+.note{background:#1b2535;border-left:3px solid var(--blue);padding:13px;margin-top:20px;border-radius:6px}
+
+@media(max-width:600px){h1{font-size:26px}.day{padding:12px}}
+
 </style>
+
 </head>
-<body><main class="wrap">
-<div class="eyebrow">MUMBAI · MASTER EVENT FLOW</div><h1>SETTLD in Mumbai</h1>
+
+<body>
+
+<main>
+
+<header>
+
+<h1>SETTLD in Mumbai</h1>
+
 <p>Arpit's day-wise schedule: India Blockchain Week, Devcon, Pragma and approved Luma side events. All times in IST.</p>
-<div class="meta"><span class="chip">🏨 Base: Ginger Mumbai Airport</span><span class="chip">📍 BKC-focused, 3–6 Nov</span><span class="chip">🚕 Cabs + walking inside venue</span><span class="chip">✓ 12 Luma-approved events in GO · 24 awaiting</span></div>
-<p id="syncStatus" role="status" aria-live="polite" style="font-size:13px;color:#9dc8ff">Connecting to Supabase…</p>
-<div class="toolbar" aria-label="Filter days"><button class="active" data-filter="all">All days</button><button data-filter="2026-11-01">Sun 1</button><button data-filter="2026-11-02">Mon 2</button><button data-filter="2026-11-03">Tue 3</button><button data-filter="2026-11-04">Wed 4</button><button data-filter="2026-11-05">Thu 5</button><button data-filter="2026-11-06">Fri 6</button><button id="awaitTab" data-filter="awaiting">Awaiting approval <span id="pendingCount">(24)</span></button><button id="copyCode" type="button" title="Copy this HTML source">Copy HTML code</button><span id="copyStatus" role="status" aria-live="polite"></span></div>
-<section id="awaitingSection" class="day hide"><div class="day-head"><h2>Awaiting approval</h2><span class="theme">Manual tracking · Not synced to Luma</span></div><div class="table-scroll"><table><thead><tr><th>Date / published time (IST)</th><th>Event</th><th>Venue / area</th><th>Status</th></tr></thead><tbody id="awaitingBody"></tbody></table></div><p style="padding:0 20px 18px">Changing an event to Approved moves it into the matching day in the main itinerary. This is a local planning change only; it does not approve your registration on Luma.</p></section>
-<section class="day" data-day="2026-11-01"><div class="day-head"><h2>Sunday · 1 November</h2><span class="theme">Arrival + IBW Day 1</span></div><div class="table-scroll"><table><thead><tr><th>Planned time</th><th>Event / activity</th><th>Venue</th><th>Fit</th><th>Travel from previous stop</th></tr></thead><tbody>
-<tr><td>After arrival</td><td>Airport → Hotel, check-in</td><td><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Ginger+Mumbai+Airport">Ginger Mumbai Airport</a></td><td>—</td><td>Cab, ~15–35 min</td></tr>
-<tr><td>Daytime*</td><td><a href="https://indiablockchainweek.com/" target="_blank" rel="noopener">India Blockchain Week — Day 1 ↗</a></td><td><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query=Fairmont+Mumbai">Fairmont Mumbai</a></td><td class="fit">5/5</td><td>Hotel → Fairmont, cab ~10–25 min</td></tr>
-<tr><td>During IBW*</td><td><a href="https://indiablockchainweek.com/institutional-forum" target="_blank" rel="noopener">Institutional Forum ↗</a> <small>(session timing to confirm)</small></td><td><a href="https://www.google.com/maps/search/?api=1&query=Fairmont+Mumbai" target="_blank" rel="noopener">Fairmont Mumbai</a></td><td class="fit">5/5</td><td>Same IBW venue; walk</td></tr>
 
-</tbody></table></div></section>
-<section class="day" data-day="2026-11-02"><div class="day-head"><h2>Monday · 2 November</h2><span class="theme">IBW + evening networking</span></div><div class="table-scroll"><table><thead><tr><th>Planned time</th><th>Event / activity</th><th>Venue</th><th>Fit</th><th>Travel from previous stop</th></tr></thead><tbody>
-<tr><td>11:15 AM–12:30 PM (planned)</td><td><a href="https://luma.com/spsnos9t" target="_blank" rel="noopener">Ethereum Cypherpunk Congress #3 ↗</a> <small>(approved; published 10 AM–7 PM)</small></td><td><a href="https://www.google.com/maps/search/?api=1&amp;query=Yashwantrao+Chavan+Centre+Nariman+Point" target="_blank" rel="noopener">Yashwantrao Chavan Centre, Nariman Point</a></td><td class="fit">4/5</td><td>Metro Line 3 to Vidhan Bhavan; return to Fairmont via CSMIA T2</td></tr>
-<tr><td>10 AM–5:30 PM</td><td><a href="https://indiablockchainweek.com/" target="_blank" rel="noopener">India Blockchain Week — Day 2 ↗</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Fairmont+Mumbai" target="_blank" rel="noopener">Fairmont Mumbai</a></td><td class="fit">5/5</td><td>Hotel → Fairmont, cab ~10–25 min</td></tr>
-<tr><td>During IBW*</td><td><a href="https://indiablockchainweek.com/institutional-forum" target="_blank" rel="noopener">Institutional Forum ↗</a> <small>(session timing to confirm)</small></td><td><a href="https://www.google.com/maps/search/?api=1&query=Fairmont+Mumbai" target="_blank" rel="noopener">Fairmont Mumbai</a></td><td class="fit">5/5</td><td>Same IBW venue; walk</td></tr>
+<div class="chips">
 
-<tr><td>5:30–6:30 PM</td><td>Travel to BKC</td><td>—</td><td>—</td><td>Cab ~30–60 min</td></tr>
-<tr><td>6:30–9:30 PM</td><td><a href="https://luma.com/Team1Mumbai" target="_blank" rel="noopener">Team1 Networking Gala ↗</a> <small>(published 6–10 PM)</small></td><td><a href="https://www.google.com/maps/search/?api=1&query=La+Panthera+BKC+Mumbai" target="_blank" rel="noopener">La Panthera, BKC</a></td><td class="fit">4/5</td><td>Cab to venue</td></tr>
-</tbody></table></div></section>
-<section class="day" data-day="2026-11-03"><div class="day-head"><h2>Tuesday · 3 November</h2><span class="theme">Devcon + approved hubs</span></div><div class="table-scroll"><table><thead><tr><th>Planned time</th><th>Event / activity</th><th>Venue</th><th>Fit</th><th>Travel from previous stop</th></tr></thead><tbody>
-<tr><td>9:30 AM–12:30 PM</td><td><a href="https://devcon.org/" target="_blank" rel="noopener">Devcon main conference ↗</a></td><td><a href="https://www.google.com/maps/search/?api=1&query=Jio+World+Convention+Centre+Mumbai" target="_blank" rel="noopener">Jio World Convention Centre</a></td><td class="fit">5/5</td><td>Hotel → BKC, cab ~30–60 min</td></tr>
-<tr><td>12:30–1 PM</td><td><a href="https://luma.com/cz51ibrc" target="_blank" rel="noopener">P2P Networking Hub ↗</a></td><td>Same venue</td><td class="low">3/5</td><td>Walk</td></tr>
-<tr><td>1–2 PM</td><td>Lunch / networking</td><td>Same venue</td><td>—</td><td>Walk</td></tr>
-<tr><td>2–3 PM</td><td><a href="https://luma.com/uxs32jih" target="_blank" rel="noopener">Security Hub ↗</a></td><td>Same venue</td><td class="fit">4/5</td><td>Walk</td></tr>
-<tr><td>3–5:30 PM</td><td>Devcon sessions / meetings</td><td>Same venue</td><td class="fit">5/5</td><td>Walk</td></tr>
-<tr><td>7:30–9:30 PM</td><td><a href="https://luma.com/stark-after-dark-mumbai" target="_blank" rel="noopener">Stark After Dark ↗</a> <small>(published 7–11 PM)</small></td><td><a href="https://www.google.com/maps/search/?api=1&query=Baglami+Bombay+Mumbai" target="_blank" rel="noopener">Bağlamı Bombay</a></td><td class="low">3/5</td><td>Cab; verify exact venue address</td></tr>
-</tbody></table></div></section>
-<section class="day" data-day="2026-11-04"><div class="day-head"><h2>Wednesday · 4 November</h2><span class="theme">Legal + standards + privacy</span></div><div class="table-scroll"><table><thead><tr><th>Planned time</th><th>Event / activity</th><th>Venue</th><th>Fit</th><th>Travel from previous stop</th></tr></thead><tbody>
-<tr><td>9:30 AM–12:30 PM</td><td><a href="https://luma.com/cw0h549b" target="_blank" rel="noopener">Onchain Legal Summit ↗</a> <small>(published 9 AM–6 PM)</small></td><td><a href="https://www.google.com/maps/search/?api=1&query=Jio+World+Convention+Centre+Mumbai" target="_blank" rel="noopener">Jio World Convention Centre</a></td><td class="fit">5/5</td><td>Hotel → BKC, cab ~30–60 min</td></tr>
-<tr><td>12:30–1:30 PM</td><td>Lunch / meetings</td><td>Same venue</td><td>—</td><td>Walk</td></tr>
-<tr><td>1:30–3:30 PM</td><td>Devcon sessions</td><td>Same venue</td><td class="fit">5/5</td><td>Walk</td></tr>
-<tr><td>3:30–4:30 PM</td><td><a href="https://luma.com/czi58jpe" target="_blank" rel="noopener">EIP Hub ↗</a></td><td>Same venue</td><td class="fit">4/5</td><td>Walk</td></tr>
-<tr><td>4:30–5 PM</td><td><a href="https://luma.com/qzlsn6lt" target="_blank" rel="noopener">Privacy Hub ↗</a></td><td>Same venue</td><td class="fit">4/5</td><td>Walk</td></tr>
-<tr><td>5–6 PM</td><td>Devcon networking</td><td>Same venue</td><td class="fit">5/5</td><td>Walk</td></tr>
-</tbody></table></div></section>
-<section class="day" data-day="2026-11-05"><div class="day-head"><h2>Thursday · 5 November</h2><span class="theme">Devcon + evening social</span></div><div class="table-scroll"><table><thead><tr><th>Planned time</th><th>Event / activity</th><th>Venue</th><th>Fit</th><th>Travel from previous stop</th></tr></thead><tbody>
-<tr><td>9:30 AM–12:30 PM</td><td>Devcon main conference</td><td><a href="https://www.google.com/maps/search/?api=1&query=Jio+World+Convention+Centre+Mumbai" target="_blank" rel="noopener">Jio World Convention Centre</a></td><td class="fit">5/5</td><td>Hotel → BKC, cab ~30–60 min</td></tr>
-<tr><td>12:30–1:30 PM</td><td>Lunch / networking</td><td>Same venue</td><td>—</td><td>Walk</td></tr>
-<tr><td>1:30–2 PM</td><td><a href="https://luma.com/mc8pq06y" target="_blank" rel="noopener">World of DeSci ↗</a></td><td>Same venue</td><td class="low">2/5</td><td>Walk</td></tr>
-<tr><td>2–5:30 PM</td><td>Devcon / investor meetings</td><td>Same venue</td><td class="fit">5/5</td><td>Walk</td></tr>
-<tr><td>7:30–10:30 PM</td><td><a href="https://luma.com/TBE-Devcon26" target="_blank" rel="noopener">The Best Event: Afterdark ↗</a> <small>(published 7 PM–1:30 AM)</small></td><td><a href="https://www.google.com/maps/search/?api=1&query=Baglami+Bombay+Mumbai" target="_blank" rel="noopener">Bağlamı Bombay</a></td><td class="fit">4/5</td><td>Cab; verify exact venue address</td></tr>
-</tbody></table></div></section>
-<section class="day" data-day="2026-11-06"><div class="day-head"><h2>Friday · 6 November</h2><span class="theme">Pragma + departure</span></div><div class="table-scroll"><table><thead><tr><th>Planned time</th><th>Event / activity</th><th>Venue</th><th>Fit</th><th>Travel from previous stop</th></tr></thead><tbody>
-<tr><td>8–9 AM</td><td>Hotel → BKC</td><td><a href="https://www.google.com/maps/search/?api=1&query=Jio+World+Convention+Centre+Mumbai" target="_blank" rel="noopener">Jio World Convention Centre</a></td><td>—</td><td>Cab ~30–60 min</td></tr>
-<tr><td>9 AM–afternoon*</td><td><a href="https://ethglobal.com/events/pragma-mumbai/" target="_blank" rel="noopener">Pragma Mumbai ↗</a></td><td>Same venue</td><td class="fit">5/5</td><td>Walk</td></tr>
-<tr><td>During breaks*</td><td>Remaining Devcon hub visits, if accessible</td><td>Same venue</td><td class="low">3–4/5</td><td>Walk</td></tr>
-<tr><td>After Pragma*</td><td>Hotel → airport</td><td><a href="https://www.google.com/maps/search/?api=1&query=Chhatrapati+Shivaji+Maharaj+International+Airport" target="_blank" rel="noopener">Mumbai Airport</a></td><td>—</td><td>Cab; flight-dependent</td></tr>
-</tbody></table></div></section>
-<div class="note"><strong>Planning notes</strong><p>* Institutional Forum timing and date-specific sessions should be confirmed on its official page; it is listed on both IBW days for planning, not as two verified sessions. Sunday and Friday depend on your flight times. Side-event visits are suggested time slots, not guarantees of particular sessions. Newly approved events are shown alongside the existing schedule and may overlap; approval does not mean attendance is confirmed. Devcon hubs may require a valid Devcon ticket even when the Luma registration is approved.</p><p>Travel durations are estimates, not live traffic. Open the linked venue names for Google Maps directions. This page is a static copy of the itinerary and does not automatically refresh Luma events. It loads shared approval statuses from Supabase when opened. Manual approvals are shared through Supabase, but they do not change Luma registration status. Anyone who can access this website can approve events; this is not an authentication system.</p></div><p class="foot">Updated 2 November 2026 · Mumbai local time (IST)</p>
-</main><script>
-const pendingEvents = [{"id":"83ujl6ms","name":"Zcash World - Mumbai","start":"2026-11-01T05:30:00Z","end":"2026-11-01T13:00:00Z","url":"https://luma.com/83ujl6ms","venue":"Bandra Kurla Complex"},{"id":"1cnairat","name":"Afterhours Mixer: Mumbai","start":"2026-11-01T11:30:00Z","end":"2026-11-01T15:30:00Z","url":"https://luma.com/1cnairat","venue":"Navpada"},{"id":"solana-summit-india","name":"Solana Summit India","start":"2026-11-02T04:30:00Z","end":"2026-11-02T13:30:00Z","url":"https://luma.com/solana-summit-india","venue":"Navpada"},{"id":"islzi7v3","name":"Money Layer @Devcon🇮🇳 Week","start":"2026-11-05T05:30:00Z","end":"2026-11-05T11:30:00Z","url":"https://luma.com/islzi7v3","venue":"Ambedkar Nagar (exact address to verify)"},{"id":"n0a39ago","name":"Onchain Dev City - Devcon [8] INDIA 🇮🇳","start":"2026-11-05T05:30:00Z","end":"2026-11-05T11:30:00Z","url":"https://luma.com/n0a39ago","venue":"Ambedkar Nagar (exact address to verify)"},{"id":"knq0yij1","name":"Fiber Diwali Poker Night","start":"2026-11-02T12:30:00Z","end":"2026-11-02T18:30:00Z","url":"https://luma.com/knq0yij1","venue":"Chandrabai Nagar"},{"id":"sjxszq4s","name":"Open Silicon, In Your Hands: IRIS Demo + Free Board · CrossBar at Devcon 8","start":"2026-11-03T03:30:00Z","end":"2026-11-06T11:30:00Z","url":"https://luma.com/sjxszq4s","venue":"Jio World Centre · 3rd floor"},{"id":"Stark-Space-Mumbai-Day-1","name":"Stark Space Mumbai | Day 1","start":"2026-11-03T04:30:00Z","end":"2026-11-03T11:30:00Z","url":"https://luma.com/Stark-Space-Mumbai-Day-1","venue":"G Block BKC"},{"id":"hr8w0hmd","name":"Diyas: NEAR @ Devcon","start":"2026-11-03T08:00:00Z","end":"2026-11-03T11:30:00Z","url":"https://luma.com/hr8w0hmd","venue":"Ambedkar Nagar"},{"id":"mh0xmqg0","name":"Media Accelerator & Startup Cohort","start":"2026-11-03T09:30:00Z","end":"2026-11-06T09:00:00Z","url":"https://luma.com/mh0xmqg0","venue":"Jio World Centre · Gate 20"},{"id":"bnmumbai26","name":"Builder Nights Mumbai - Agentic Edition | Hosted by MetaMask, Monad, ENS, ARKIV, Strato and Consensys Diligence","start":"2026-11-03T11:30:00Z","end":"2026-11-03T15:30:00Z","url":"https://luma.com/bnmumbai26","venue":"G Block BKC"},{"id":"x6m1zvfh","name":"House of HYPE by Hyperliquid India x Bitget Wallet","start":"2026-11-03T12:30:00Z","end":"2026-11-03T16:30:00Z","url":"https://luma.com/x6m1zvfh","venue":"Khar"},{"id":"jlisaxzz","name":"Zyhperpunks Dinner @Devcon","start":"2026-11-03T13:30:00Z","end":"2026-11-03T17:30:00Z","url":"https://luma.com/jlisaxzz","venue":"Ram Krishna Nagar"},{"id":"uqmzpq5k","name":"Fluid Afterhours | Devcon 8","start":"2026-11-03T14:30:00Z","end":"2026-11-03T18:30:00Z","url":"https://luma.com/uqmzpq5k","venue":"G Block BKC"},{"id":"gjfpaw4r","name":"OPEN HOUSE by lil room Mumbai | 4th November","start":"2026-11-04T05:30:00Z","end":"2026-11-04T14:00:00Z","url":"https://luma.com/gjfpaw4r","venue":"Venue not disclosed"},{"id":"freesocietyhackathon","name":"Zcash Presents: FREE SOCIETY HACKATHON","start":"2026-11-04T05:30:00Z","end":"2026-11-05T09:30:00Z","url":"https://luma.com/freesocietyhackathon","venue":"MMRDA Area"},{"id":"defi-69kr","name":"DeFi Lunch at Devcon","start":"2026-11-04T06:30:00Z","end":"2026-11-04T09:00:00Z","url":"https://luma.com/defi-69kr","venue":"Venue not disclosed"},{"id":"TBE-Stable26","name":"The Best Event: Stable - Payments & Stablecoins","start":"2026-11-04T10:30:00Z","end":"2026-11-04T14:30:00Z","url":"https://luma.com/TBE-Stable26","venue":"G Block BKC"},{"id":"ai6owvhz","name":"EVA Symposium III","start":"2026-11-04T11:30:00Z","end":"2026-11-04T17:30:00Z","url":"https://luma.com/ai6owvhz","venue":"Siddharath Nagar"},{"id":"qzzu690f","name":"Collateral Call: A Canton Night by Alpend","start":"2026-11-04T15:30:00Z","end":"2026-11-04T19:30:00Z","url":"https://luma.com/qzzu690f","venue":"Bandra Kurla Complex"},{"id":"kz3klqjq","name":"Capital connect","start":"2026-11-04T14:30:00Z","end":"2026-11-04T17:30:00Z","url":"https://luma.com/kz3klqjq","venue":"Venue not disclosed"},{"id":"unfollowbombay","name":"UNFOLLOW_002 Mumbai: Afterparty with Zcash & Bitrefill","start":"2026-11-04T14:30:00Z","end":"2026-11-04T19:30:00Z","url":"https://luma.com/unfollowbombay","venue":"MMRDA Area"},{"id":"un1ip2l2","name":"Institutional Open Doors Mixer","start":"2026-11-04T15:30:00Z","end":"2026-11-04T17:30:00Z","url":"https://luma.com/un1ip2l2","venue":"G Block BKC"},{"id":"4s9s062i","name":"Devcon Builders Evening by Canton x Ledger x OpenZeppelin","start":"2026-11-05T10:30:00Z","end":"2026-11-05T13:30:00Z","url":"https://luma.com/4s9s062i","venue":"MMRDA Area"},{"id":"xuofsg0p","name":"NEAR × Quantus Networking Mixer","start":"2026-11-05T12:00:00Z","end":"2026-11-05T15:30:00Z","url":"https://luma.com/xuofsg0p","venue":"G Block BKC"},{"id":"kfh8wkql","name":"notneils' stealth founder dinner","start":"2026-11-05T13:30:00Z","end":"2026-11-05T16:30:00Z","url":"https://luma.com/kfh8wkql","venue":"G Block BKC"},{"id":"h0x443s9","name":"The Money House","start":"2026-11-06T10:30:00Z","end":"2026-11-06T14:30:00Z","url":"https://luma.com/h0x443s9","venue":"Venue not disclosed"},{"id":"d6v9he6d","name":"Devcon Coffee Exchange","start":"2026-11-05T07:30:00Z","end":"2026-11-05T10:30:00Z","url":"https://luma.com/d6v9he6d","venue":"G Block BKC"},{"id":"gmi3qcpz","name":"Founder × VC Happy Hour @ Devcon 8","start":"2026-11-05T14:00:00Z","end":"2026-11-05T17:00:00Z","url":"https://luma.com/gmi3qcpz","venue":"Mumbai · venue to verify"}];
-const SUPABASE_URL='https://cqoxnquutaqummjwunrn.supabase.co';
-const SUPABASE_KEY='sb_publishable_FsOnmqOhRXdbvF_-yduFWg_2yont5L4';
-const API=SUPABASE_URL+'/rest/v1/event_approvals';
-const headers={'apikey':SUPABASE_KEY,'Content-Type':'application/json'};
-const verifiedLumaApproved = new Set(['TBE-Stable26','islzi7v3','n0a39ago','hr8w0hmd','d6v9he6d','xuofsg0p','gmi3qcpz']);
-let manualApproved={};
-let syncReady=false;
-function syncMessage(message){document.getElementById('syncStatus').textContent=message;}
-async function loadApprovals(){
- try{
-  const r=await fetch(API+'?select=event_id,status',{headers});
-  if(!r.ok)throw new Error('HTTP '+r.status+' — '+(await r.text()).slice(0,140));
-  const records=await r.json();
-  manualApproved=Object.fromEntries(records.filter(x=>x.status==='approved').map(x=>[x.event_id,true]));
-  syncReady=true;
-  syncMessage('● Connected to Supabase · approvals synced');
-  render();
- }catch(e){syncReady=false;syncMessage('Supabase unavailable: '+e.message+' · run the supplied SQL first');render();}
+<span class="chip">🏨 Ginger Mumbai Airport</span>
+
+<span class="chip">📍 BKC-focused</span>
+
+<span class="chip">📅 November 1–6, 2026</span>
+
+<span class="chip">✓ Luma statuses checked November 6</span>
+
+</div>
+
+</header>
+
+<nav class="tabs" id="tabs"></nav>
+
+<div id="content"></div>
+
+<div class="note">
+
+<strong>Important</strong>
+
+<p>Event times below are published event windows unless labelled "planned." Overlapping approvals are alternatives, not a commitment to attend everything. Manual approvals on this website are shared through Supabase but do not change Luma registration status. This page does not automatically fetch new Luma statuses.</p>
+
+</div>
+
+</main>
+
+<script>
+
+const SUPABASE_URL="https://cqoxnquutaqummjwunrn.supabase.co";
+
+const SUPABASE_KEY="sb_publishable_FsOnmqOhRXdbvF_-yduFWg_2yont5L4";
+
+const L="https://luma.com/";
+
+const D="https://www.google.com/maps/search/?api=1&query=";
+
+const event=(id,day,time,name,venue,status="approved",note="")=>({
+
+ id,day,time,name,venue,status,note,url:L+id
+
+});
+
+const days=[
+
+["2026-11-01","Sunday · November 1","Arrival + India Blockchain Week"],
+
+["2026-11-02","Monday · November 2","Cypherpunk Congress + IBW + Team1"],
+
+["2026-11-03","Tuesday · November 3","Devcon + hubs + Starknet"],
+
+["2026-11-04","Wednesday · November 4","Legal Summit + stablecoins + institutional mixer"],
+
+["2026-11-05","Thursday · November 5","Devcon + investor networking"],
+
+["2026-11-06","Friday · November 6","Pragma + CryptoMondays + departure"]
+
+];
+
+const schedule=[
+
+{day:1,time:"Flight dependent",name:"Arrival → Ginger Mumbai Airport",venue:"Ginger Mumbai Airport",note:"Check in and leave luggage"},
+
+{day:1,time:"As available",name:"India Blockchain Week · Day 1",venue:"Fairmont Mumbai",url:"https://indiablockchainweek.com/"},
+
+{day:1,time:"Check programme",name:"IBW Institutional Forum",venue:"Mumbai · confirm session venue",url:"https://indiablockchainweek.com/institutional-forum"},
+
+{day:2,time:"11:15 AM–12:30 PM · planned",name:"Ethereum Cypherpunk Congress #3",venue:"Yashwantrao Chavan Centre, Nariman Point",url:L+"spsnos9t",note:"Published 10 AM–7 PM; Aqua Line via Vidhan Bhavan"},
+
+{day:2,time:"2:00–5:15 PM · planned",name:"India Blockchain Week · Day 2",venue:"Fairmont Mumbai",url:"https://indiablockchainweek.com/",note:"Metro Line 3 to CSMIA T2"},
+
+{day:2,time:"Check programme",name:"IBW Institutional Forum",venue:"Mumbai",url:"https://indiablockchainweek.com/institutional-forum"},
+
+{day:2,time:"6:30–9:30 PM · planned",name:"Team1 Networking Gala",venue:"La Panthera, BKC",url:L+"Team1Mumbai",note:"Published 6–10 PM"},
+
+{day:3,time:"9:30 AM–12:30 PM · planned",name:"Devcon 8",venue:"Jio World Convention Centre, BKC",url:"https://devcon.org/"},
+
+{day:3,time:"12:30–1:00 PM · planned",name:"P2P Networking Hub",venue:"Jio World Centre",url:L+"cz51ibrc"},
+
+{day:3,time:"1:00–2:00 PM",name:"Lunch",venue:"Jio World Centre"},
+
+{day:3,time:"2:00–3:00 PM · planned",name:"Security Hub",venue:"Jio World Centre",url:L+"uxs32jih"},
+
+{day:3,time:"3:00–5:30 PM · planned",name:"Devcon sessions",venue:"Jio World Centre",url:"https://devcon.org/"},
+
+{day:3,time:"1:30–5:00 PM · published",name:"Diyas: NEAR @ Devcon",venue:"Ambedkar Nagar",url:L+"hr8w0hmd",note:"Approved; overlaps Devcon"},
+
+{day:3,time:"5:00–9:00 PM · published",name:"Builder Nights Mumbai — Agentic Edition",venue:"Amazonia, Godrej BKC",url:L+"bnmumbai26",note:"Approved; historical alternative"},
+
+{day:3,time:"7:00–11:00 PM · published",name:"Stark After Dark: Starknet Party",venue:"Bağlami Bombay, BKC",url:L+"stark-after-dark-mumbai"},
+
+{day:4,time:"9:30 AM–12:30 PM · planned",name:"Onchain Legal Summit",venue:"Jio World Centre",url:L+"cw0h549b",note:"Published 9 AM–6 PM"},
+
+{day:4,time:"1:30–3:30 PM · planned",name:"Devcon sessions",venue:"Jio World Centre",url:"https://devcon.org/"},
+
+{day:4,time:"3:30–4:30 PM · planned",name:"EIP Hub",venue:"Jio World Centre",url:L+"czi58jpe"},
+
+{day:4,time:"4:00–8:00 PM · published",name:"The Best Event: Stable — Payments & Stablecoins",venue:"La Panthera, INS Tower, BKC",url:L+"TBE-Stable26",note:"PRIORITY · approved; overlaps afternoon Devcon"},
+
+{day:4,time:"8:00 PM–1:00 AM · published",name:"UNFOLLOW_002 Mumbai",venue:"True Tramm Trunk, G Block BKC",url:L+"unfollowbombay",note:"Approved; alternative"},
+
+{day:4,time:"9:00–11:00 PM · published",name:"Institutional Open Doors Mixer",venue:"NMACC Arts Cafe, Gate 11, third floor, BKC",url:L+"un1ip2l2",note:"PRIORITY · approved"},
+
+{day:5,time:"9:30 AM–12:30 PM · planned",name:"Devcon 8",venue:"Jio World Convention Centre",url:"https://devcon.org/"},
+
+{day:5,time:"11:00 AM–5:00 PM · published",name:"Money Layer @ Devcon Week",venue:"Ambedkar Nagar",url:L+"islzi7v3",note:"Approved alternative"},
+
+{day:5,time:"11:00 AM–5:00 PM · published",name:"Onchain Dev City",venue:"Ambedkar Nagar",url:L+"n0a39ago",note:"Approved alternative"},
+
+{day:5,time:"1:00–4:00 PM · published",name:"Devcon Coffee Exchange",venue:"G Block, BKC",url:L+"d6v9he6d"},
+
+{day:5,time:"1:30–2:00 PM · planned",name:"World of DeSci",venue:"Jio World Centre",url:L+"mc8pq06y"},
+
+{day:5,time:"2:00–5:30 PM · planned",name:"Devcon sessions",venue:"Jio World Centre",url:"https://devcon.org/"},
+
+{day:5,time:"5:30–9:00 PM · published",name:"NEAR × Quantus Networking Mixer",venue:"G Block, BKC",url:L+"xuofsg0p"},
+
+{day:5,time:"7:00 PM–1:30 AM · published",name:"The Best Event: Afterdark",venue:"BKC",url:L+"TBE-Devcon26"},
+
+{day:5,time:"7:30–10:30 PM · published",name:"Founder × VC Happy Hour",venue:"Mumbai · exact venue unspecified",url:L+"gmi3qcpz",status:"waitlist",note:"IMPORTANT: previously approved, now WAITLISTED"},
+
+{day:6,time:"9:00 AM onward · flight dependent",name:"Pragma Mumbai",venue:"Jio World Convention Centre, BKC",url:"https://ethglobal.com/events/pragma-mumbai/"},
+
+{day:6,time:"11:00 AM–12:30 PM · published",name:"CryptoMondays Devcon India Edition",venue:"Courtyard by Marriott Mumbai International Airport",url:L+"9bhu9f28",note:"Approved; newly updated date and venue"},
+
+{day:6,time:"1:00 PM onward · published",name:"MONEY MAKER",venue:"Ballard Estate",url:L+"np3wx7v5",note:"Approved; attend only if flight permits"},
+
+{day:6,time:"Flight dependent",name:"Collect luggage → Mumbai airport",venue:"Ginger Mumbai Airport / airport",note:"Leave sufficient check-in and traffic buffer"}
+
+];
+
+const pending=[
+
+event("83ujl6ms",1,"11:00 AM–6:30 PM","Zcash World — Mumbai","BKC"),
+
+event("1cnairat",1,"5:00–9:00 PM","Afterhours Mixer: Mumbai","Navpada"),
+
+event("solana-summit-india",2,"10:00 AM–7:00 PM","Solana Summit India","Navpada"),
+
+event("knq0yij1",2,"6:00 PM–midnight","Fiber Diwali Poker Night","Chandrabai Nagar"),
+
+event("sjxszq4s",3,"Nov 3–6","Open Silicon: IRIS Demo + CrossBar","Jio World Centre"),
+
+event("mh0xmqg0",3,"Nov 3–6","Media Accelerator & Startup Cohort","Jio World Centre"),
+
+event("x6m1zvfh",3,"6:00–10:00 PM","House of HYPE","Khar"),
+
+event("jlisaxzz",3,"7:00–11:00 PM","Zyhperpunks Dinner","Ram Krishna Nagar"),
+
+event("uqmzpq5k",3,"8:00 PM–midnight","Fluid Afterhours","BKC"),
+
+event("gjfpaw4r",4,"11:00 AM–7:30 PM","OPEN HOUSE by lil room","Venue undisclosed"),
+
+event("freesocietyhackathon",4,"Nov 4–5","Zcash FREE SOCIETY HACKATHON","MMRDA Area"),
+
+event("defi-69kr",4,"12:00–2:30 PM","DeFi Lunch at Devcon","Venue undisclosed"),
+
+event("ai6owvhz",4,"5:00–11:00 PM","EVA Symposium III","Siddharath Nagar"),
+
+event("qzzu690f",4,"9:00 PM–1:00 AM","Collateral Call: Canton Night","BKC"),
+
+event("kz3klqjq",4,"8:00–11:00 PM","Capital Connect","Venue undisclosed"),
+
+event("4s9s062i",5,"4:00–7:00 PM","Devcon Builders Evening","MMRDA Area"),
+
+event("kfh8wkql",5,"7:00–10:00 PM","Stealth Founder Dinner","BKC"),
+
+event("h0x443s9",6,"4:00–8:00 PM","The Money House","Venue undisclosed")
+
+];
+
+// Status snapshot verified from Luma, not the website database.
+
+const snapshot={
+
+ "gmi3qcpz":"waitlist",
+
+ "2kj0jqf9":"waitlist",
+
+ "hashkey-demo-day-mumbai":"invited",
+
+ "8jfeq82e":"invited"
+
+};
+
+const extra=[
+
+event("2kj0jqf9",4,"7:30–11:30 PM","Sidequest: DevCon Mumbai","Mumbai","waitlist"),
+
+event("hashkey-demo-day-mumbai",4,"Nov 4–5","HashKey Chain Horizon Demo Day","ATLAS SkillTech University","invited"),
+
+event("8jfeq82e",4,"Check Luma","Legal & Governance Hub","Devcon 8","invited")
+
+];
+
+const approvedIds=new Set([
+
+"spsnos9t","Team1Mumbai","hr8w0hmd","bnmumbai26",
+
+"Stark-Space-Mumbai-Day-1","unfollowbombay",
+
+"TBE-Stable26","un1ip2l2","islzi7v3","n0a39ago",
+
+"d6v9he6d","xuofsg0p","9bhu9f28","np3wx7v5"
+
+]);
+
+const statusOverride={};
+
+let active="all";
+
+function escapeHTML(s){
+
+ return String(s??"").replace(/[&<>"']/g,c=>({
+
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+
+ }[c]));
+
 }
-async function approveEvent(eventId,select){
- if(!syncReady){syncMessage('Cannot save: Supabase not connected. Run the SQL setup.');select.value='pending';return;}
- select.disabled=true;
- syncMessage('Saving approval…');
- try{
-  const r=await fetch(API+'?on_conflict=event_id',{method:'POST',headers:{...headers,'Prefer':'resolution=merge-duplicates,return=minimal'},body:JSON.stringify({event_id:eventId,status:'approved'})});
-  if(!r.ok)throw new Error('HTTP '+r.status+' — '+(await r.text()).slice(0,140));
-  manualApproved[eventId]=true;
-  syncMessage('● Saved to Supabase · visible to everyone');
-  render();
- }catch(e){select.disabled=false;select.value='pending';syncMessage('Approval not saved: '+e.message);}
+
+function anchor(url,name,cls=""){
+
+ if(!url)return escapeHTML(name);
+
+ return `<a class="${cls}" href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer">${escapeHTML(name)} ↗</a>`;
+
 }
-const fmt = new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',month:'short',day:'numeric',hour:'numeric',minute:'2-digit',hour12:true});
-const dayFmt = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit'});
-function dateKey(d){const a=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Kolkata',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(new Date(d));const p=Object.fromEntries(a.map(x=>[x.type,x.value]));return p.year+'-'+p.month+'-'+p.day;}
-function elt(tag,cls,text){const x=document.createElement(tag);if(cls)x.className=cls;if(text!==undefined)x.textContent=text;return x;}
-function link(url,text,cls){const a=elt('a',cls,text);a.href=url;a.target='_blank';a.rel='noopener noreferrer';return a;}
-function formatWindow(e){return fmt.format(new Date(e.start))+' – '+fmt.format(new Date(e.end));}
+
+function mapLink(place){
+
+ return anchor(D+encodeURIComponent(place),place,"venue");
+
+}
+
+function statusTag(status){
+
+ if(status==="waitlist")return '<span class="tag wait">Waitlisted</span>';
+
+ if(status==="invited")return '<span class="tag invited">Invited</span>';
+
+ return '<span class="tag">Approved</span>';
+
+}
+
+function row(e){
+
+ return `<tr>
+
+ <td>${escapeHTML(e.time)}</td>
+
+ <td>${anchor(e.url,e.name)}
+
+ ${e.status==="waitlist"||e.status==="invited"?" "+statusTag(e.status):""}
+
+ ${e.note?`<div><small>${escapeHTML(e.note)}</small></div>`:""}
+
+ </td>
+
+ <td>${mapLink(e.venue)}</td>
+
+ </tr>`;
+
+}
+
+function effectiveStatus(e){
+
+ return statusOverride[e.id] || snapshot[e.id] || e.status;
+
+}
+
+function manualApproved(){
+
+ return pending.filter(e=>effectiveStatus(e)==="approved");
+
+}
+
+function renderTabs(){
+
+ const tabs=[["all","All days"],...days.map((d,i)=>[String(i+1),d[1].split(" · ")[0]+" "+(i+1)]),
+
+ ["pending","Awaiting approval ("+pending.filter(e=>effectiveStatus(e)!=="approved").length+")"]];
+
+ document.getElementById("tabs").innerHTML=tabs.map(([id,name])=>
+
+ `<button class="tab ${active===id?"active":""}" data-tab="${id}">${escapeHTML(name)}</button>`).join("");
+
+ document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{active=b.dataset.tab;render()});
+
+}
+
+function renderDays(){
+
+ const root=document.getElementById("content");
+
+ root.innerHTML="";
+
+ days.forEach((d,i)=>{
+
+  const day=i+1;
+
+  if(active!=="all"&&active!==String(day))return;
+
+  const items=schedule.filter(e=>e.day===day);
+
+  const additions=manualApproved().filter(e=>e.day===day).map(e=>({
+
+   ...e,note:"Manually approved in planner; verify actual Luma status"
+
+  }));
+
+  const section=document.createElement("section");
+
+  section.className="day visible";
+
+  section.innerHTML=`<h2>${escapeHTML(d[1])}</h2>
+
+  <p>${escapeHTML(d[2])}</p>
+
+  <div class="scroll"><table>
+
+  <thead><tr><th>Time (IST)</th><th>Event / activity</th><th>Venue</th></tr></thead>
+
+  <tbody>${[...items,...additions].map(row).join("")}</tbody>
+
+  </table></div>`;
+
+  root.appendChild(section);
+
+ });
+
+}
+
+function renderPending(){
+
+ const root=document.getElementById("content");
+
+ const items=pending.filter(e=>effectiveStatus(e)!=="approved");
+
+ const rows=items.map(e=>`<tr>
+
+ <td>Nov ${e.day}</td>
+
+ <td>${escapeHTML(e.time)}</td>
+
+ <td>${anchor(e.url,e.name)}</td>
+
+ <td>${mapLink(e.venue)}</td>
+
+ <td><select data-id="${escapeHTML(e.id)}">
+
+ <option value="pending">Awaiting approval</option>
+
+ <option value="approved">Approved</option>
+
+ </select></td>
+
+ </tr>`).join("");
+
+ root.innerHTML=`<section class="day visible">
+
+ <h2>Awaiting approval</h2>
+
+ <p>Use the dropdown only to update your shared planner. It does not register you for an event on Luma.</p>
+
+ <div class="scroll"><table>
+
+ <thead><tr><th>Date</th><th>Time (IST)</th><th>Event</th><th>Venue</th><th>Planner status</th></tr></thead>
+
+ <tbody>${rows}</tbody></table></div>
+
+ <h2 style="margin-top:24px">Waitlisted / invited</h2>
+
+ <div class="scroll"><table>
+
+ <thead><tr><th>Time</th><th>Event</th><th>Venue</th></tr></thead>
+
+ <tbody>${[...schedule.filter(e=>e.status==="waitlist"),...extra].map(row).join("")}</tbody>
+
+ </table></div>
+
+ </section>`;
+
+ root.querySelectorAll("select[data-id]").forEach(sel=>{
+
+  sel.onchange=async()=>{
+
+   if(sel.value!=="approved")return;
+
+   const id=sel.dataset.id;
+
+   sel.disabled=true;
+
+   const ok=await saveApproval(id);
+
+   sel.disabled=false;
+
+   if(ok){statusOverride[id]="approved";render();}
+
+   else{sel.value="pending";alert("Supabase could not save this approval. Please check the database configuration.");}
+
+  };
+
+ });
+
+}
+
 function render(){
- const body=document.getElementById('awaitingBody');body.replaceChildren();
- document.querySelectorAll('.manual-row').forEach(x=>x.remove());
- let count=0;
- for(const e of pendingEvents){
-   if(verifiedLumaApproved.has(e.id) || manualApproved[e.id]){
-     const day=document.querySelector('.day[data-day="'+dateKey(e.start)+'"]');
-     if(day){const tr=elt('tr','manual-row');const td1=elt('td','',formatWindow(e));const td2=elt('td');td2.append(link(e.url,e.name+' ↗'));td2.append(elt('div','manual-note',verifiedLumaApproved.has(e.id) ? 'Approved on Luma · check for schedule conflicts' : 'Manually marked approved · verify on Luma'));const td3=elt('td','',e.venue);const td4=elt('td','', '—');const td5=elt('td','', 'Check travel / timing; not yet integrated into the suggested route');tr.append(td1,td2,td3,td4,td5);day.querySelector('tbody').append(tr);}
-   } else {
-     count++;const tr=elt('tr');const td1=elt('td','',formatWindow(e));const td2=elt('td');td2.append(link(e.url,e.name+' ↗','awaiting-event'));const td3=elt('td','awaiting-venue',e.venue);const td4=elt('td');const sel=elt('select','status-select');sel.setAttribute('aria-label','Approval status for '+e.name);[['pending','Awaiting approval'],['approved','Approved']].forEach(([v,t])=>{const opt=elt('option','',t);opt.value=v;sel.append(opt);});sel.value='pending';sel.addEventListener('change',()=>{if(sel.value==='approved')approveEvent(e.id,sel);});td4.append(sel);tr.append(td1,td2,td3,td4);body.append(tr);
-   }
- }
- document.getElementById('pendingCount').textContent='('+count+')';
- if(!count){const tr=elt('tr');const td=elt('td','', 'No events awaiting approval.');td.colSpan=4;tr.append(td);body.append(tr);}
+
+ renderTabs();
+
+ if(active==="pending")renderPending();
+
+ else renderDays();
+
 }
-function filterView(filter){document.querySelectorAll('[data-filter]').forEach(b=>b.classList.toggle('active',b.dataset.filter===filter));document.getElementById('awaitingSection').classList.toggle('hide',filter!=='awaiting');document.querySelectorAll('.day[data-day]').forEach(x=>x.classList.toggle('hide',filter==='awaiting'||(filter!=='all'&&x.dataset.day!==filter)));}
-document.querySelectorAll('[data-filter]').forEach(b=>b.addEventListener('click',()=>filterView(b.dataset.filter)));
-document.getElementById('copyCode').addEventListener('click',async()=>{const content='<!DOCTYPE html>\n'+document.documentElement.outerHTML;const status=document.getElementById('copyStatus');try{await navigator.clipboard.writeText(content);status.textContent='HTML copied!';}catch(err){const ta=document.createElement('textarea');ta.value=content;ta.style.cssText='position:fixed;left:-9999px';document.body.append(ta);ta.select();try{if(!document.execCommand('copy'))throw Error();status.textContent='HTML copied!';}catch(e){status.textContent='Copy unavailable here; use the downloaded HTML file.';}ta.remove();}});
+
+const api=SUPABASE_URL+"/rest/v1/event_approvals";
+
+const headers={
+
+ "apikey":SUPABASE_KEY,
+
+ "Content-Type":"application/json"
+
+};
+
+async function loadApprovals(){
+
+ try{
+
+  const response=await fetch(api+"?select=event_id,status",{
+
+   headers:{"apikey":SUPABASE_KEY}
+
+  });
+
+  if(!response.ok)throw Error("HTTP "+response.status);
+
+  const data=await response.json();
+
+  data.forEach(r=>{
+
+   if(r.status==="approved")statusOverride[r.event_id]="approved";
+
+  });
+
+ }catch(err){console.warn("Supabase read failed:",err);}
+
+ render();
+
+}
+
+async function saveApproval(id){
+
+ try{
+
+  const response=await fetch(api+"?on_conflict=event_id",{
+
+   method:"POST",
+
+   headers:{...headers,"Prefer":"resolution=merge-duplicates,return=minimal"},
+
+   body:JSON.stringify({event_id:id,status:"approved"})
+
+  });
+
+  return response.ok;
+
+ }catch(err){console.error(err);return false;}
+
+}
+
+render();
+
 loadApprovals();
-</script></body></html>
+
+</script>
+
+</body>
+
+</html>
